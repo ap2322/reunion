@@ -32,7 +32,22 @@ class ActivityTest < Minitest::Test
     assert_equal 20, @activity.total_cost
 
     @activity.add_participant("Luther", 40)
-    
+
     assert_equal 60, @activity.total_cost
+  end
+
+  def test_split
+    @activity.add_participant("Maria", 20)
+    @activity.add_participant("Luther", 40)
+
+    assert_equal 30, @activity.split
+  end
+
+  def test_owed
+    @activity.add_participant("Maria", 20)
+    @activity.add_participant("Luther", 40)
+    expected = {"Maria" => 10, "Luther"=> -10}
+
+    assert_equal expected, @activity.owed
   end
 end
